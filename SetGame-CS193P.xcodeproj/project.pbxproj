@@ -8,18 +8,28 @@
 
 /* Begin PBXBuildFile section */
 		1F5D70DF266D0B58008A4791 /* SetGame_CS193PApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70DE266D0B58008A4791 /* SetGame_CS193PApp.swift */; };
-		1F5D70E1266D0B58008A4791 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70E0266D0B58008A4791 /* ContentView.swift */; };
+		1F5D70E1266D0B58008A4791 /* SoloSetGameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70E0266D0B58008A4791 /* SoloSetGameView.swift */; };
 		1F5D70E3266D0B59008A4791 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F5D70E2266D0B59008A4791 /* Assets.xcassets */; };
 		1F5D70E6266D0B59008A4791 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 1F5D70E5266D0B59008A4791 /* Preview Assets.xcassets */; };
+		1F5D70EE26710EA3008A4791 /* AspectVGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70ED26710EA3008A4791 /* AspectVGrid.swift */; };
+		1F5D70F02671124E008A4791 /* SetCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70EF2671124E008A4791 /* SetCard.swift */; };
+		1F5D70F226711635008A4791 /* SetCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F126711635008A4791 /* SetCardDeck.swift */; };
+		1F5D70F4267118BE008A4791 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F3267118BE008A4791 /* SetGame.swift */; };
+		1F5D70F726711A91008A4791 /* SoloSetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		1F5D70DB266D0B58008A4791 /* SetGame-CS193P.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "SetGame-CS193P.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		1F5D70DE266D0B58008A4791 /* SetGame_CS193PApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame_CS193PApp.swift; sourceTree = "<group>"; };
-		1F5D70E0266D0B58008A4791 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
+		1F5D70E0266D0B58008A4791 /* SoloSetGameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloSetGameView.swift; sourceTree = "<group>"; };
 		1F5D70E2266D0B59008A4791 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		1F5D70E5266D0B59008A4791 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		1F5D70E7266D0B59008A4791 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		1F5D70ED26710EA3008A4791 /* AspectVGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AspectVGrid.swift; sourceTree = "<group>"; };
+		1F5D70EF2671124E008A4791 /* SetCard.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCard.swift; sourceTree = "<group>"; };
+		1F5D70F126711635008A4791 /* SetCardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardDeck.swift; sourceTree = "<group>"; };
+		1F5D70F3267118BE008A4791 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
+		1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloSetGameViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +63,10 @@
 			isa = PBXGroup;
 			children = (
 				1F5D70DE266D0B58008A4791 /* SetGame_CS193PApp.swift */,
-				1F5D70E0266D0B58008A4791 /* ContentView.swift */,
+				1F5D70E0266D0B58008A4791 /* SoloSetGameView.swift */,
+				1F5D70ED26710EA3008A4791 /* AspectVGrid.swift */,
+				1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */,
+				1F5D70F5267118CB008A4791 /* Model */,
 				1F5D70E2266D0B59008A4791 /* Assets.xcassets */,
 				1F5D70E7266D0B59008A4791 /* Info.plist */,
 				1F5D70E4266D0B59008A4791 /* Preview Content */,
@@ -67,6 +80,16 @@
 				1F5D70E5266D0B59008A4791 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		1F5D70F5267118CB008A4791 /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				1F5D70F3267118BE008A4791 /* SetGame.swift */,
+				1F5D70F126711635008A4791 /* SetCardDeck.swift */,
+				1F5D70EF2671124E008A4791 /* SetCard.swift */,
+			);
+			path = Model;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -138,8 +161,13 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				1F5D70E1266D0B58008A4791 /* ContentView.swift in Sources */,
+				1F5D70F226711635008A4791 /* SetCardDeck.swift in Sources */,
+				1F5D70E1266D0B58008A4791 /* SoloSetGameView.swift in Sources */,
 				1F5D70DF266D0B58008A4791 /* SetGame_CS193PApp.swift in Sources */,
+				1F5D70F02671124E008A4791 /* SetCard.swift in Sources */,
+				1F5D70F726711A91008A4791 /* SoloSetGameViewModel.swift in Sources */,
+				1F5D70EE26710EA3008A4791 /* AspectVGrid.swift in Sources */,
+				1F5D70F4267118BE008A4791 /* SetGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

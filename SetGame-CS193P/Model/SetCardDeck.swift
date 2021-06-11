@@ -9,9 +9,10 @@ import Foundation
 
 struct SetCardDeck {
     
-    let cards: [SetCard]
+    static let allCards: [SetCard] = buildSetCardDeck()
+    static var shuffledAllCards: [SetCard] { allCards.shuffled() }
     
-    init() {
+    private static func buildSetCardDeck() -> [SetCard] {
         var setCards: [SetCard] = []
         for firstfFeature in SetCard.Feature.allCases {
             for secondFeature in SetCard.Feature.allCases {
@@ -24,7 +25,7 @@ struct SetCardDeck {
                 }
             }
         }
-        self.cards = setCards
+        return setCards
     }
     
 }

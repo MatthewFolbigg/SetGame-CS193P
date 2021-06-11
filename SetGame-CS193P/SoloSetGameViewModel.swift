@@ -16,28 +16,25 @@ class SoloSetGameViewModel: ObservableObject {
         self.cardTheme = theme
     }
     
-    var cards: [SetCard] { model.cards }
+    //var cards: [SetCard] { model.c }
     var cardTheme: CardTheme
+    var currentCards: [SetCard] { model.dealtCards }
     
     static func newSoloSetGame() -> SetGame {
         SetGame()
     }
 
     //MARK: - Intents
-    
-    //MARK: - FOR TESTING WILL BE REMOVED FROM HERE
-    func getThreeRandomCards() -> [SetCard] {
-        let upper = Int.random(in: 50...(cards.count-1))
-        let mid = upper - 20
-        let lower = upper - 40
-        return [cards[upper], cards[mid], cards[lower]]
+    func dealFirstCards() {
+        model.dealCards(12)
     }
     
-    func checkSet(cardOne: SetCard, cardTwo: SetCard, cardThree: SetCard) -> Bool {
-        model.containsSet(cardOne: cardOne, cardTwo: cardTwo, cardThree: cardThree)
+    func dealMoreCards() {
+        model.dealCards(3)
     }
     
-    
-    
+    func chooseCard(_ card: SetCard) {
+        model.choose(card: card)
+    }
     
 }

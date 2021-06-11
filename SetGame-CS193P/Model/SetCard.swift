@@ -19,6 +19,8 @@ struct SetCard: Identifiable {
     let secondFeature: Feature
     let thirdFeature: Feature
     let fourthFeature: Feature
+    
     let id: Int
+    var isSelected: Bool = false
     
 }

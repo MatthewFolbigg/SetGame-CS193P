@@ -9,24 +9,83 @@ import Foundation
 
 struct SetGame {
     
-    private let cardDeck = SetCardDeck()
-    var cards: [SetCard] { cardDeck.cards }
- 
+    private let allSetCards = SetCardDeck.shuffledAllCards
     
-    func containsSet(cardOne: SetCard, cardTwo: SetCard, cardThree: SetCard) -> Bool {
-        let featureOneIsSet = featuresAllowForSet(featureOne: cardOne.firstFeature, featureTwo: cardTwo.firstFeature, featureThree: cardThree.firstFeature)
-        let featureTwoIsSet = featuresAllowForSet(featureOne: cardOne.secondFeature, featureTwo: cardTwo.secondFeature, featureThree: cardThree.secondFeature)
-        let featureThreeIsSet = featuresAllowForSet(featureOne: cardOne.thirdFeature, featureTwo: cardTwo.thirdFeature, featureThree: cardThree.thirdFeature)
-        let featureFourIsSet = featuresAllowForSet(featureOne: cardOne.fourthFeature, featureTwo: cardTwo.fourthFeature, featureThree: cardThree.fourthFeature)
-        
-        if featureOneIsSet && featureTwoIsSet && featureThreeIsSet && featureFourIsSet {
-            return true
-        } else {
-            return false
+    private var cardDeck: [SetCard]
+    private(set) var dealtCards: [SetCard]
+    private(set) var matchedCards: [SetCard]
+    
+    init() {
+        cardDeck = allSetCards
+        dealtCards = []
+        matchedCards = []
+        dealCards(12)
+    }
+    
+    mutating func dealCards(_ number: Int) {
+        let numberToDeal = number < cardDeck.count ? number : cardDeck.count
+        for _ in 0..<numberToDeal {
+            let card = cardDeck.removeFirst()
+            dealtCards.append(card)
+        }
+        if cardDeck.count == 0 {
+            print("No more cards in deck")
         }
     }
     
-    private func featuresAllowForSet(featureOne a: SetCard.Feature, featureTwo b: SetCard.Feature, featureThree c: SetCard.Feature) -> Bool {
+    mutating func shuffleRemainingCards() {
+        cardDeck.shuffle()
+    }
+    
+    mutating func choose(card: SetCard) {
+        guard let cardIndex = indexFor(card, inArray: dealtCards) else { return }
+        dealtCards[cardIndex].isSelected.toggle()
+        let selectedCards = dealtCards.compactMap { $0.isSelected == true ? $0 : nil }
+        print(selectedCards.count)
+        if selectedCards.count == 3 {
+            handleSelectedCards(selectedCards)
+        }
+    }
+    
+    private mutating func handleSelectedCards(_ cards: [SetCard]) {
+        if containsSet(cards: cards) {
+            print("++ Thats a Set!")
+            for card in cards {
+                guard let index = indexFor(card, inArray: dealtCards) else { return }
+                dealtCards.remove(at: index)
+                matchedCards.append(card)
+            }
+        } else {
+            print("-- Not a Set")
+            for card in cards {
+                guard let index = indexFor(card, inArray: dealtCards) else { return }
+                dealtCards[index].isSelected = false
+            }
+        }
+        print("remainingInDeck: \(cardDeck.count) Dealt:\(dealtCards.count) Matched: \(matchedCards.count)")
+    }
+    
+    func indexFor(_ card: SetCard, inArray: [SetCard]) -> Int? {
+        return inArray.firstIndex(where: { $0.id == card.id })
+    }
+    
+  
+    private func containsSet(cards: [SetCard]) -> Bool {
+        if cards.count != 3  { return false } //Not enough or too many cards for a set
+        let firstFeatures: [SetCard.Feature] = cards.map( { $0.firstFeature } )
+        let secondFeatures: [SetCard.Feature] = cards.map( { $0.secondFeature } )
+        let thirdFeatures: [SetCard.Feature] = cards.map( { $0.thirdFeature } )
+        let fourthFeatures: [SetCard.Feature] = cards.map( { $0.fourthFeature } )
+        let featureSets = [firstFeatures, secondFeatures, thirdFeatures, fourthFeatures]
+        for featureSet in featureSets {
+            if !featuresAllowForSet(a: featureSet[0], b: featureSet[1], c: featureSet[2]) {
+                return false
+            }
+        }
+        return true
+    }
+        
+    private func featuresAllowForSet(a: SetCard.Feature, b: SetCard.Feature, c: SetCard.Feature) -> Bool {
         if (a == b) && (b == c) {
             return true
         } else if (a != b) && (b != c) && (a != c) {

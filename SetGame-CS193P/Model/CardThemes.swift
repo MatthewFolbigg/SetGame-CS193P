@@ -12,7 +12,7 @@ protocol CardTheme {
     func numberOfObjects(feature: SetCard.Feature) -> Int
 }
 
-struct standardCardTheme: CardTheme {
+struct StandardCardTheme: CardTheme {
         
     func objectColour(feature: SetCard.Feature) -> Color {
         switch feature {

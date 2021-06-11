@@ -28,7 +28,7 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
                     ForEach(items) { item in
                         content(item)
                             .aspectRatio(aspectRatio, contentMode: .fit)
-                            .padding(4)
+                            .padding(6)
                     }
                 }
                 Spacer(minLength: 0)
@@ -44,7 +44,7 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     
     private func itemWidthToFit(itemCount: Int, in size: CGSize, aspectRatio: CGFloat) -> CGFloat {
         // This function is not my own. It was provided in the CS193P lecture and all crdit goes to the CS193P team.
-        // I have modified its name but appart from that it is the same as the one provided
+        // I have modified its name and added the minimum column count
         var columnCount = 1
         var rowCount = items.count
         repeat {
@@ -58,6 +58,10 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
         } while columnCount < itemCount
         if columnCount > itemCount {
             columnCount = itemCount
+        }
+        //MARK: - Minimum Column Count
+        if columnCount < 3 {
+            columnCount = 3
         }
         return floor(size.width / CGFloat(columnCount))
     }

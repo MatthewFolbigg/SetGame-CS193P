@@ -11,7 +11,7 @@ import SwiftUI
 struct SetGame_CS193PApp: App {
     var body: some Scene {
         WindowGroup {
-            SoloSetGameView(game: SoloSetGameViewModel())
+            SoloSetGameView(game: SoloSetGameViewModel(theme: StandardCardTheme()))
         }
     }
 }

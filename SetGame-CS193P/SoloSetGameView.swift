@@ -10,15 +10,45 @@ import SwiftUI
 struct SoloSetGameView: View {
     @ObservedObject var game: SoloSetGameViewModel
     
+    @State var currentCards: [SetCard] = [] //TODO: Removed this. Should be handeled in the model
+    
+    //MARK: - Body
     var body: some View {
-        AspectVGrid(items: game.cards, aspectRatio: 2/3) { card in
-            SetCardView(card: card, theme: game.cardTheme)
+        VStack {
+            AspectVGrid(items: currentCards, aspectRatio: 2/3) { card in
+                CardView(card: card, theme: game.cardTheme)
+            }
+            Spacer()
+            VStack {
+                //TODO: Button functionality is for testing, this check shouldnt be in the view. It will be called in the mdoel via card selection intent
+                Button("This is a Set!") {
+                    print("Checking....")
+                    if currentCards.count == 3 {
+                        let check = game.checkSet(cardOne: currentCards[2], cardTwo: currentCards[1], cardThree: currentCards[0])
+                        if check {
+                            print("These cards are a SET!")
+                        } else {
+                            print("Nope")
+                        }
+                        
+                    }
+                }
+                .padding(.bottom, 5.0)
+                Button("New cards") {
+                    print("New cards please")
+                    currentCards = game.getThreeRandomCards()
+                }
+            }
+            .padding()
         }
     }
 }
 
-struct SetCardView: View {
-    
+
+
+
+//MARK: - Card Views
+struct CardView: View {
     var card: SetCard
     var theme: CardTheme
     
@@ -28,42 +58,55 @@ struct SetCardView: View {
     var body: some View {
         ZStack {
             RoundedRectangle(cornerRadius: 10)
+                .strokeBorder(lineWidth: 2)
             VStack() {
-                ForEach(0..<numberOfShapes) {  _ in
-                    if card.thirdFeature == .One {
-                        CardObjectShape(shapeFeature: card.fourthFeature).stroke()
-                    } else if card.thirdFeature == .Two {
-                        ZStack {
-                            CardObjectShape(shapeFeature: card.fourthFeature)
-                                .foregroundColor(objectColour.opacity(0.5))
-                            CardObjectShape(shapeFeature: card.fourthFeature)
-                                .stroke(lineWidth: 2)
-                                .foregroundColor(objectColour)
-                        }
-                    } else if card.thirdFeature == .Three {
-                        CardObjectShape(shapeFeature: card.fourthFeature)
-                    }
+                    CardObjectShapeView(shapeFeature: card.thirdFeature, strokeFeature: card.fourthFeature)
+                if numberOfShapes > 1 {
+                    CardObjectShapeView(shapeFeature: card.thirdFeature, strokeFeature: card.fourthFeature)
                 }
-                .foregroundColor(objectColour)
+                if numberOfShapes > 2 {
+                    CardObjectShapeView(shapeFeature: card.thirdFeature, strokeFeature: card.fourthFeature)
+                }
             }
-            .padding(8)
+            .foregroundColor(objectColour)
+            .padding(30)
         }
     }
 }
 
-struct CardObjectShape: Shape {
-    
+//TODO: This should be generic enough to take cards that use other content, for example an image instead of a shape
+struct CardObjectShapeView: View {
     let shapeFeature: SetCard.Feature
+    let strokeFeature: SetCard.Feature
     
-    func path(in rect: CGRect) -> Path {
-        if shapeFeature == .One {
-            return Circle().path(in: rect)
-        } else if shapeFeature == .Two {
-            return Rectangle().path(in: rect)
-        } else if shapeFeature == .Three {
-            return Ellipse().path(in: rect)
-        } else {
-            return Path()
+    var body: some View {
+        if strokeFeature == .One {
+            CardObjectShape(shapeFeature: shapeFeature)
+        } else if strokeFeature == .Two {
+            CardObjectShape(shapeFeature: shapeFeature)
+                .stroke()
+        } else if strokeFeature == .Three {
+            ZStack{
+                CardObjectShape(shapeFeature: shapeFeature)
+                    .opacity(0.5)
+                CardObjectShape(shapeFeature: shapeFeature)
+                    .stroke(lineWidth: 5)
+            }
+        }
+    }
+    
+    struct CardObjectShape: Shape {
+        let shapeFeature: SetCard.Feature
+        func path(in rect: CGRect) -> Path {
+            if shapeFeature == .One {
+                return Circle().path(in: rect)
+            } else if shapeFeature == .Two {
+                return Rectangle().path(in: rect)
+            } else if shapeFeature == .Three {
+                return Ellipse().path(in: rect)
+            } else {
+                return Path()
+            }
         }
     }
 }
@@ -72,9 +115,9 @@ struct CardObjectShape: Shape {
 
 
 
-
+//MARK: - Canvas Previews
 struct ContentView_Previews: PreviewProvider {
     static var previews: some View {
-        SoloSetGameView(game: SoloSetGameViewModel())
+        SoloSetGameView(game: SoloSetGameViewModel(theme: StandardCardTheme()))
     }
 }

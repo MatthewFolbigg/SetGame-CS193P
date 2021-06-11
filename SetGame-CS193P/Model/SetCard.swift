@@ -11,8 +11,8 @@ struct SetCard: Identifiable {
     
     enum Feature: Int, CaseIterable {
         case One = 1
-        case Two
-        case Three
+        case Two = 2
+        case Three = 3
     }
     
     let firstFeature: Feature

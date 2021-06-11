@@ -13,12 +13,12 @@ struct SetCardDeck {
     
     init() {
         var setCards: [SetCard] = []
-        for shape in SetCard.Shape.allCases {
-            for colour in SetCard.Colour.allCases {
-                for number in SetCard.Number.allCases {
-                    for shading in SetCard.Shading.allCases {
-                        let id = (shape.rawValue * 1000) + (colour.rawValue * 100) + (number.rawValue * 10) + shading.rawValue
-                        let card = SetCard(shape: shape, colour: colour, number: number, shading: shading, id: id)
+        for firstfFeature in SetCard.Feature.allCases {
+            for secondFeature in SetCard.Feature.allCases {
+                for thirdFeature in SetCard.Feature.allCases {
+                    for fourthFeature in SetCard.Feature.allCases {
+                        let id = (firstfFeature.rawValue * 1000) + (secondFeature.rawValue * 100) + (thirdFeature.rawValue * 10) + fourthFeature.rawValue
+                        let card = SetCard(firstFeature: firstfFeature, secondFeature: secondFeature, thirdFeature: thirdFeature, fourthFeature: fourthFeature, id: id)
                         setCards.append(card)
                     }
                 }

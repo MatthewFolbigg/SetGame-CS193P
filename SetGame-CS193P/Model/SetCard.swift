@@ -9,34 +9,16 @@ import Foundation
 
 struct SetCard: Identifiable {
     
-    enum Shape: Int, CaseIterable {
-        case oval = 1
-        case rectangle = 2
-        case diamond = 3
+    enum Feature: Int, CaseIterable {
+        case One = 1
+        case Two
+        case Three
     }
     
-    enum Colour: Int, CaseIterable {
-        case red = 1
-        case purple = 2
-        case green = 3
-    }
-    
-    enum Number: Int, CaseIterable {
-        case one = 1
-        case two = 2
-        case three = 3
-    }
-    
-    enum Shading: Int, CaseIterable {
-        case fill = 1
-        case stripe = 2
-        case outline = 3
-    }
-    
-    let shape: Shape
-    let colour: Colour
-    let number: Number
-    let shading: Shading
+    let firstFeature: Feature
+    let secondFeature: Feature
+    let thirdFeature: Feature
+    let fourthFeature: Feature
     let id: Int
     
 }

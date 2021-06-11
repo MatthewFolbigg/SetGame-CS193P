@@ -16,6 +16,7 @@
 		1F5D70F226711635008A4791 /* SetCardDeck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F126711635008A4791 /* SetCardDeck.swift */; };
 		1F5D70F4267118BE008A4791 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F3267118BE008A4791 /* SetGame.swift */; };
 		1F5D70F726711A91008A4791 /* SoloSetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */; };
+		1F9F1B7526739512009998CE /* CardThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F1B7426739512009998CE /* CardThemes.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -30,6 +31,7 @@
 		1F5D70F126711635008A4791 /* SetCardDeck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetCardDeck.swift; sourceTree = "<group>"; };
 		1F5D70F3267118BE008A4791 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloSetGameViewModel.swift; sourceTree = "<group>"; };
+		1F9F1B7426739512009998CE /* CardThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardThemes.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -88,6 +90,7 @@
 				1F5D70F3267118BE008A4791 /* SetGame.swift */,
 				1F5D70F126711635008A4791 /* SetCardDeck.swift */,
 				1F5D70EF2671124E008A4791 /* SetCard.swift */,
+				1F9F1B7426739512009998CE /* CardThemes.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -161,6 +164,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				1F9F1B7526739512009998CE /* CardThemes.swift in Sources */,
 				1F5D70F226711635008A4791 /* SetCardDeck.swift in Sources */,
 				1F5D70E1266D0B58008A4791 /* SoloSetGameView.swift in Sources */,
 				1F5D70DF266D0B58008A4791 /* SetGame_CS193PApp.swift in Sources */,

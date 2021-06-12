@@ -12,18 +12,13 @@ class SoloSetGameViewModel: ObservableObject {
     @Published private var model: SetGame
     
     init(theme: CardTheme) {
-        self.model = SoloSetGameViewModel.newSoloSetGame()
+        self.model = SetGame()
         self.cardTheme = theme
     }
     
-    //var cards: [SetCard] { model.c }
     var cardTheme: CardTheme
     var currentCards: [SetCard] { model.dealtCards }
     
-    static func newSoloSetGame() -> SetGame {
-        SetGame()
-    }
-
     //MARK: - Intents
     func dealFirstCards() {
         model.dealCards(12)
@@ -35,6 +30,10 @@ class SoloSetGameViewModel: ObservableObject {
     
     func chooseCard(_ card: SetCard) {
         model.choose(card: card)
+    }
+    
+    func newGame() {
+        self.model = SetGame()
     }
     
 }

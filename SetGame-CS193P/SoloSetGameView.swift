@@ -12,18 +12,33 @@ struct SoloSetGameView: View {
     
     //MARK: - Body
     var body: some View {
+        Button {
+            game.newGame()
+        } label: {
+            Spacer()
+            HStack{
+                //Image(systemName: "circle.circle")
+                Text("New Game")
+            }
+        }
+        .padding()
+        
         VStack {
             AspectVGrid(items: game.currentCards, aspectRatio: 2/3) { card in
                 CardView(card: card, theme: game.cardTheme)
                     .onTapGesture { game.chooseCard(card) }
             }
             Spacer()
-            VStack {
-                Button("New cards") {
-                    print("New cards please")
-                    game.dealMoreCards()
+            Button {
+                print("New cards please")
+                game.dealMoreCards()
+            } label: {
+                HStack {
+                    Image(systemName: "rectangle.stack")
+                    Text("Deal 3")
                 }
             }
+            
             .padding()
         }
     }

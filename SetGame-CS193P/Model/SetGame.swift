@@ -12,13 +12,11 @@ struct SetGame {
     private let allSetCards = SetCardDeck.shuffledAllCards
     
     private var cardDeck: [SetCard]
-    private(set) var dealtCards: [SetCard]
-    private(set) var matchedCards: [SetCard]
+    private(set) var dealtCards: [SetCard] = []
+    private(set) var matchedCards: [SetCard] = []
     
     init() {
         cardDeck = allSetCards
-        dealtCards = []
-        matchedCards = []
         dealCards(12)
     }
     
@@ -53,6 +51,7 @@ struct SetGame {
             for card in cards {
                 guard let index = indexFor(card, inArray: dealtCards) else { return }
                 dealtCards.remove(at: index)
+                dealtCards.insert(cardDeck.removeFirst(), at: index)
                 matchedCards.append(card)
             }
         } else {

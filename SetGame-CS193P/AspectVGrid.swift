@@ -11,7 +11,6 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     
     var items: [Item]
     var aspectRatio: CGFloat
-    //var allignment: VerticalAlignment
     var content: (Item) -> ItemView
     
     init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {

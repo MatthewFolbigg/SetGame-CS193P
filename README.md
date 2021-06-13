@@ -5,5 +5,5 @@ SetGame is an iOS app built for homework assignment 3 in the Stanford Univesity 
 - [Assignment 3 Details](https://cs193p.sites.stanford.edu/sites/g/files/sbiybj16636/files/media/file/assignment_3_0.pdf)
 
 ### Progress
-- Assignment 3: Core game logic and ui added. This version is a playable game
+- Assignment 3: Core game logic and UI added. This version is a playable game.
 - Assignment 4: will add animation to the game (Coming Soon)

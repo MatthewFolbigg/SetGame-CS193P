@@ -17,7 +17,22 @@ class SoloSetGameViewModel: ObservableObject {
     }
     
     var cardTheme: CardTheme
+    
+    var score: Int { model.currentScore }
+    var gameState: SetGame.gameState { model.currentGameSate }
     var currentCards: [SetCard] { model.dealtCards }
+    var currentlySelectedIsSet: SetGame.isASet { model.currentSelectionIsSet }
+    var totalCardsRemaining: Int { model.dealtCards.count + model.cardDeck.count }
+    var setsFound: Int { model.matchedCards.count/3 }
+    var deckIsEmpty: Bool { model.cardDeck.isEmpty }
+    
+    var selectedHighlightColour: Color {
+        switch currentlySelectedIsSet {
+        case .yes: return Color.green
+        case .no: return Color.red
+        case .notEnoughCards: return Color.blue
+        }
+    }
     
     //MARK: - Intents
     func dealFirstCards() {
@@ -25,7 +40,10 @@ class SoloSetGameViewModel: ObservableObject {
     }
     
     func dealMoreCards() {
-        model.dealCards(3)
+        switch currentlySelectedIsSet {
+        case .yes: model.handelSet()
+        default: model.dealCards(3)
+        }
     }
     
     func chooseCard(_ card: SetCard) {

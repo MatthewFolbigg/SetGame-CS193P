@@ -12,17 +12,23 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
     var items: [Item]
     var aspectRatio: CGFloat
     var content: (Item) -> ItemView
+    var minColumns: Int
+    var minItemWidth: CGFloat
     
-    init(items: [Item], aspectRatio: CGFloat, @ViewBuilder content: @escaping (Item) -> ItemView) {
+    init(items: [Item], aspectRatio: CGFloat, minItemWidth: CGFloat, minColumns: Int, @ViewBuilder content: @escaping (Item) -> ItemView) {
         self.items = items
         self.aspectRatio = aspectRatio
         self.content = content
+        self.minColumns = minColumns
+        self.minItemWidth = minItemWidth
     }
     
     var body: some View {
         GeometryReader { geometry in
+            ScrollView {
             VStack {
-                let width: CGFloat = itemWidthToFit(itemCount: items.count, in: geometry.size, aspectRatio: aspectRatio)
+                let suggestedItemWidth = itemWidthToFit(itemCount: items.count, in: geometry.size, aspectRatio: aspectRatio)
+                let width: CGFloat = suggestedItemWidth > minItemWidth ? suggestedItemWidth : minItemWidth
                 LazyVGrid(columns: [adaptiveGridItem(width: width)], spacing: 0) {
                     ForEach(items) { item in
                         content(item)
@@ -31,6 +37,8 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
                     }
                 }
                 Spacer(minLength: 0)
+            }
+            
             }
         }
     }
@@ -59,8 +67,8 @@ struct AspectVGrid<Item: Identifiable, ItemView: View>: View {
             columnCount = itemCount
         }
         //MARK: - Minimum Column Count
-        if columnCount < 3 {
-            columnCount = 3
+        if columnCount < minColumns {
+            columnCount = minColumns
         }
         return floor(size.width / CGFloat(columnCount))
     }

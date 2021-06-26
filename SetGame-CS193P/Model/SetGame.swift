@@ -98,14 +98,11 @@ struct SetGame {
         }
     }
     
-    private mutating func replaceSelectionWithNewCards() {
+    private mutating func moveSetToDiscarded() {
         for card in selectedCards {
             guard let index = indexFor(card, inArray: dealtCards) else { return }
             dealtCards.remove(at: index)
             matchedCards.append(card)
-            if let card = getCardFromDeck() {
-                dealtCards.insert(card, at: index)
-            }
         }
     }
     
@@ -117,7 +114,7 @@ struct SetGame {
     }
     
     mutating func handelSet() {
-        replaceSelectionWithNewCards()
+        moveSetToDiscarded()
         increaseScore()
     }
   

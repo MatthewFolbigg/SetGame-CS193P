@@ -16,11 +16,15 @@ class SoloSetGameViewModel: ObservableObject {
         self.cardTheme = theme
     }
     
-    var cardTheme: CardTheme
+    private(set) var cardTheme: CardTheme
     
     var score: Int { model.currentScore }
     var gameState: SetGame.gameState { model.currentGameSate }
-    var currentCards: [SetCard] { model.dealtCards }
+    
+    var dealtCards: [SetCard] { model.dealtCards }
+    var cardDeck: [SetCard] { model.cardDeck }
+    var matchedCards: [SetCard] { model.matchedCards }
+    
     var currentlySelectedIsSet: SetGame.isASet { model.currentSelectionIsSet }
     var totalCardsRemaining: Int { model.dealtCards.count + model.cardDeck.count }
     var setsFound: Int { model.matchedCards.count/3 }
@@ -39,11 +43,16 @@ class SoloSetGameViewModel: ObservableObject {
         model.dealCards(12)
     }
     
-    func dealMoreCards() {
-        switch currentlySelectedIsSet {
-        case .yes: model.handelSet()
-        default: model.dealCards(3)
-        }
+    func dealThreeCards() {
+        model.dealCards(3)
+    }
+    
+    func dealACard() {
+        model.dealCards(1)
+    }
+    
+    func dealToReplace() {
+        model.dealToReplaceSet()
     }
     
     func chooseCard(_ card: SetCard) {

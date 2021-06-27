@@ -18,7 +18,7 @@ struct Cardify: AnimatableModifier {
             ZStack() {
                 RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)
                     .strokeBorder(lineWidth: lineWidth)
-                    .background(colour.opacity(isSelected ? 0.5 : 0.2).clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)))
+                    .background(colour.brightness(isSelected ? 0.3 : 0.5).clipShape(RoundedRectangle(cornerRadius: DrawingConstants.cornerRadius)))
                 content
                     .padding(geometry.size.height * 0.15)
             }
@@ -33,7 +33,6 @@ struct Cardify: AnimatableModifier {
         static let lineWidthModifier: CGFloat = 25
         static let selectedLineWidthModifier: CGFloat = 50
         static let selectedScale: CGFloat = 1.08
-        static let matchedOpacity: Double = 0.2
     }
 }
 

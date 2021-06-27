@@ -53,13 +53,6 @@ struct SetGame {
         }
     }
     
-    mutating func dealToReplaceCardAt(index: Int) {
-        dealtCards.remove(at: index)
-        if let newCard = getCardFromDeck() {
-            dealtCards.insert(newCard, at: index)
-        }
-    }
-    
     mutating func shuffleRemainingCards() {
         cardDeck.shuffle()
     }
@@ -83,10 +76,10 @@ struct SetGame {
         case .notEnoughCards:
             dealtCards[newSelectionIndex].isSelected.toggle()
         case .yes:
-            handelSet()
+            moveSetToDiscarded()
+            increaseScore()
         case .no:
             toggleSelection(selectedCards)
-            dealtCards[newSelectionIndex].isSelected.toggle()
             decreaseScore()
         }
     }
@@ -96,11 +89,27 @@ struct SetGame {
             guard let index = indexFor(card, inArray: dealtCards) else { return }
             dealtCards[index].isSelected.toggle()
         }
+        for card in cards {
+            guard let index = indexFor(card, inArray: matchedCards) else { return }
+            matchedCards[index].isSelected.toggle()
+        }
+    }
+    
+    mutating func dealToReplaceSet() {
+        for card in selectedCards {
+            guard let index = indexFor(card, inArray: dealtCards) else { return }
+            if let newCard = getCardFromDeck() {
+                dealtCards.remove(at: index)
+                dealtCards.insert(newCard, at: index)
+                matchedCards.append(card)
+            }
+        }
     }
     
     private mutating func moveSetToDiscarded() {
         for card in selectedCards {
             guard let index = indexFor(card, inArray: dealtCards) else { return }
+            dealtCards[index].isSelected = false
             dealtCards.remove(at: index)
             matchedCards.append(card)
         }
@@ -113,11 +122,6 @@ struct SetGame {
         case notEnoughCards
     }
     
-    mutating func handelSet() {
-        moveSetToDiscarded()
-        increaseScore()
-    }
-  
     private func containsSet(cards: [SetCard]) -> isASet {
         if cards.count != 3  { return .notEnoughCards } //Not enough or too many cards for a set
         let firstFeatures: [SetCard.Feature] = cards.map( { $0.firstFeature } )

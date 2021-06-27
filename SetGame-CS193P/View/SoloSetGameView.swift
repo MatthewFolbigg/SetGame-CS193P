@@ -9,30 +9,85 @@ import SwiftUI
 
 struct SoloSetGameView: View {
     @ObservedObject var game: SoloSetGameViewModel
-    var cardTheme = StandardCardTheme()
+    @Namespace private var dealingNameSpace
     
     //MARK: - Main Body
     var body: some View {
         VStack {
             topBar
-            switch game.gameState {
-            case .playing: gameView
-            case .win: winMessage
-            case .loose: looseMessage
-            }
+            gameView
             bottomBar
         }
     }
     
     //MARK: - Game View
     var gameView: some View {
-        AspectVGrid(items: game.currentCards, aspectRatio: 2/3,  minItemWidth: 70, minColumns: 3) { card in
-            CardView(card: card, cardTheme: cardTheme)
+        VStack {
+            switch game.gameState {
+            case .playing: dealtCardsView
+            case .win: winMessage
+            case .loose: looseMessage
+            }
+            deckAndDiscardSection
+        }
+    }
+    
+    var dealtCardsView: some View {
+        AspectVGrid(items: game.dealtCards, aspectRatio: DrawingConstants.aspectRatio,  minItemWidth: 70, minColumns: 3) { card in
+            CardView(card: card, cardTheme: game.cardTheme)
+                .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
                 .onTapGesture {
-                    withAnimation(.easeInOut(duration: 0.03)) {
+                    withAnimation(.easeInOut) {
                         game.chooseCard(card)
                     }
                 }
+        }
+    }
+    
+    var remainingDeckView: some View {
+        ZStack {
+            ForEach(game.cardDeck) { card in
+                ZStack {
+                    Color.clear
+                        .cardify(colour: .black, isSelected: false)
+                        .brightness(0.3)
+                        .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
+                        .frame(width: DrawingConstants.deckWidth, height: DrawingConstants.deckHeight)
+                        .onTapGesture {
+                            if game.currentlySelectedIsSet == .yes {
+                                withAnimation() {
+                                    game.dealToReplace()
+                                }
+                            } else {
+                                for i in 0..<3 {
+                                    withAnimation(Animation.easeInOut(duration: 1).delay(Double(i)*0.2)) {
+                                        game.dealACard()
+                                    }
+                                }
+                            }
+                        }
+                }
+                
+            }
+        }
+    }
+    
+    var matchedPileView: some View {
+        ZStack {
+            ForEach(game.matchedCards) { card in
+                CardView(card: card, cardTheme: game.cardTheme)
+                    .frame(width: DrawingConstants.deckWidth, height: DrawingConstants.deckHeight)
+                    .matchedGeometryEffect(id: card.id, in: dealingNameSpace)
+            }
+        }
+    }
+    
+    var deckAndDiscardSection: some View {
+        HStack {
+            Spacer()
+            remainingDeckView
+            matchedPileView
+            Spacer()
         }
     }
     
@@ -117,6 +172,13 @@ struct SoloSetGameView: View {
             }
             .padding(.top, 2)
         }
+    }
+    
+    //MARK: - Constants
+    struct DrawingConstants {
+        static let aspectRatio: CGFloat = 2/3
+        static let deckHeight: CGFloat = 90
+        static let deckWidth = deckHeight * aspectRatio
     }
     
 }

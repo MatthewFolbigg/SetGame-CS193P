@@ -9,6 +9,7 @@ import SwiftUI
 
 struct SoloSetGameView: View {
     @ObservedObject var game: SoloSetGameViewModel
+    var cardTheme = StandardCardTheme()
     
     //MARK: - Main Body
     var body: some View {
@@ -26,7 +27,7 @@ struct SoloSetGameView: View {
     //MARK: - Game View
     var gameView: some View {
         AspectVGrid(items: game.currentCards, aspectRatio: 2/3,  minItemWidth: 70, minColumns: 3) { card in
-            CardView(card: card)
+            CardView(card: card, cardTheme: cardTheme)
                 .onTapGesture {
                     withAnimation(.easeInOut(duration: 0.03)) {
                         game.chooseCard(card)
@@ -82,51 +83,37 @@ struct SoloSetGameView: View {
     struct CardView: View {
         
         var card: SetCard
+        var cardTheme: CardTheme
         
-        var cardColour: Color { StandardCardTheme.cardColour(for: card) }
-        var cardCornerRadius: CGFloat = 10
-        var selectedScaleModifier: CGFloat { card.isSelected ?  1.08 : 1 }
-        var selectedOpacityModifier: Double { card.isSelected ? 0.3 : 0.15 }
-        var selectedOutlineModifier: CGFloat { card.isSelected ? 25 : 50 }
-        
-        var numberOfShapes: Int { StandardCardTheme.numberOfObjects(on: card) }
-        let shapeAspectRatio: CGFloat = 4/2
+        var cardColour: Color { cardTheme.cardColour(for: card) }
+        var numberOfShapes: Int { cardTheme.numberOfObjects(on: card) }
         
         var body: some View {
             GeometryReader { geometry in
-                let lineWidth = geometry.size.height/(selectedOutlineModifier)
-                   
-                ZStack {
-                    RoundedRectangle(cornerRadius: cardCornerRadius)
-                        .strokeBorder(lineWidth: lineWidth)
-                        .foregroundColor(cardColour)
-                        .background(cardColour.opacity(selectedOpacityModifier).clipShape(RoundedRectangle(cornerRadius: cardCornerRadius)))
-                    VStack() {
-                        ForEach(0..<numberOfShapes, id: \.self) { shapeIndex in
-                            Group {
-                                switch card.fourthFeature {
-                                case .One :
-                                    StandardCardTheme.cardShape(card: card)
-                                case .Two :
+                
+                VStack() {
+                    ForEach(0..<numberOfShapes, id: \.self) { shapeIndex in
+                        Group {
+                            switch card.fourthFeature {
+                            case .One :
+                                StandardCardTheme.cardShape(card: card)
+                            case .Two :
+                                StandardCardTheme.cardShape(card: card)
+                                    .stroke(lineWidth: 3)
+                            case .Three :
+                                ZStack {
                                     StandardCardTheme.cardShape(card: card)
                                         .stroke(lineWidth: 3)
-                                case .Three :
-                                    ZStack {
-                                        StandardCardTheme.cardShape(card: card)
-                                            .stroke(lineWidth: 3)
-                                        StandardCardTheme.cardShape(card: card)
-                                            .scaleEffect(0.4)
-                                    }
+                                    StandardCardTheme.cardShape(card: card)
+                                        .scaleEffect(0.4)
                                 }
                             }
-                                .frame(maxHeight: geometry.size.height/4)
-                                .aspectRatio(shapeAspectRatio, contentMode: .fit)
                         }
+                        .frame(maxHeight: geometry.size.height/4)
+                        .aspectRatio(4/2, contentMode: .fit)
                     }
-                        .padding(geometry.size.height * 0.15)
-                        .foregroundColor(cardColour)
                 }
-                .scaleEffect(selectedScaleModifier)
+                .cardify(colour: cardColour, isSelected: card.isSelected)
             }
             .padding(.top, 2)
         }

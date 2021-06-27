@@ -18,6 +18,7 @@
 		1F5D70F4267118BE008A4791 /* SetGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F3267118BE008A4791 /* SetGame.swift */; };
 		1F5D70F726711A91008A4791 /* SoloSetGameViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */; };
 		1F9F1B7526739512009998CE /* CardThemes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1F9F1B7426739512009998CE /* CardThemes.swift */; };
+		1FA170BA2688E3C1008561F0 /* Cardify.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1FA170B92688E3C1008561F0 /* Cardify.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -34,6 +35,7 @@
 		1F5D70F3267118BE008A4791 /* SetGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetGame.swift; sourceTree = "<group>"; };
 		1F5D70F626711A91008A4791 /* SoloSetGameViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SoloSetGameViewModel.swift; sourceTree = "<group>"; };
 		1F9F1B7426739512009998CE /* CardThemes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardThemes.swift; sourceTree = "<group>"; };
+		1FA170B92688E3C1008561F0 /* Cardify.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cardify.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -51,6 +53,7 @@
 			isa = PBXGroup;
 			children = (
 				1F5D70E0266D0B58008A4791 /* SoloSetGameView.swift */,
+				1FA170B92688E3C1008561F0 /* Cardify.swift */,
 				1F5D70ED26710EA3008A4791 /* AspectVGrid.swift */,
 				1F34F10726752C5500059003 /* Diamond.swift */,
 			);
@@ -183,6 +186,7 @@
 				1F5D70F726711A91008A4791 /* SoloSetGameViewModel.swift in Sources */,
 				1F34F10826752C5500059003 /* Diamond.swift in Sources */,
 				1F5D70EE26710EA3008A4791 /* AspectVGrid.swift in Sources */,
+				1FA170BA2688E3C1008561F0 /* Cardify.swift in Sources */,
 				1F5D70F4267118BE008A4791 /* SetGame.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

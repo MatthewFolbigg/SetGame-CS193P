@@ -8,13 +8,13 @@
 import SwiftUI
 
 protocol CardTheme {
-    static func cardColour(for card: SetCard) -> Color
-    static func numberOfObjects(on card: SetCard) -> Int
+    func cardColour(for card: SetCard) -> Color
+    func numberOfObjects(on card: SetCard) -> Int
 }
 
 struct StandardCardTheme: CardTheme {
   
-    static func cardColour(for card: SetCard) -> Color {
+    func cardColour(for card: SetCard) -> Color {
         switch card.firstFeature {
         case .One : return Color.red
         case .Two : return Color.purple
@@ -22,7 +22,7 @@ struct StandardCardTheme: CardTheme {
         }
     }
     
-    static func numberOfObjects(on card: SetCard) -> Int {
+    func numberOfObjects(on card: SetCard) -> Int {
         switch card.secondFeature {
         case .One : return 1
         case .Two : return 2
@@ -40,5 +40,5 @@ struct StandardCardTheme: CardTheme {
             }
         }
     }
-        
+    
 }

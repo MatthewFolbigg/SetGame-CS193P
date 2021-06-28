@@ -59,8 +59,9 @@ struct SoloSetGameView: View {
                                     game.dealToReplace()
                                 }
                             } else {
-                                for i in 0..<3 {
-                                    withAnimation(Animation.easeInOut(duration: 1).delay(Double(i)*0.2)) {
+                                let numberToDeal =  game.cardDeck.count == 81 ? 12 : 3   
+                                for i in 0..<numberToDeal {
+                                    withAnimation(Animation.easeInOut(duration: 0.8).delay(Double(i)*0.2)) {
                                         game.dealACard()
                                     }
                                 }

@@ -22,7 +22,6 @@ struct SetGame {
     
     init() {
         cardDeck = allSetCards
-        dealCards(12)
     }
     
     enum gameState {
@@ -84,6 +83,10 @@ struct SetGame {
         }
     }
     
+    mutating func deselectCard(at index: Int) {
+        cardDeck[index].isSelected.toggle()
+    }
+    
     private mutating func toggleSelection(_ cards: [SetCard]) {
         for card in cards {
             guard let index = indexFor(card, inArray: dealtCards) else { return }
@@ -108,10 +111,12 @@ struct SetGame {
     
     private mutating func moveSetToDiscarded() {
         for card in selectedCards {
+            if let cardIndex = dealtCards.firstIndex(where: { $0.id == card.id }) {
+                dealtCards[cardIndex].isSelected = false
+            }
             guard let index = indexFor(card, inArray: dealtCards) else { return }
-            dealtCards[index].isSelected = false
-            dealtCards.remove(at: index)
-            matchedCards.append(card)
+            let matchedCard = dealtCards.remove(at: index)
+            matchedCards.append(matchedCard)
         }
     }
     
